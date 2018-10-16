@@ -14,7 +14,10 @@ public class ParserStart {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String title = doc.title();
+        String title = null;
+        if (doc != null) {
+            title = doc.title();
+        }
         System.out.println(title);
     }
 }
