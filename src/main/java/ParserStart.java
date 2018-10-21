@@ -2,9 +2,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class ParserStart {
@@ -12,41 +9,32 @@ public class ParserStart {
         System.out.println("Hi!");
         System.out.println("--------------------------------");
 
-        String url;
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader("src/url.txt"));
-//            while ((st = br.readLine()) != null) {
-//                ta.append(st);
-//            }
-            url = "http://" + br.readLine();
-            System.out.println(url);
-            br.close();
-        } catch (IOException e) {
-            System.out.println("File not: url.txt");
-            return;
-        }
+        GetURL url = new GetURL();
 
         Document doc = null;
+
         try {
-            doc = Jsoup.connect(url).get();
+            doc = Jsoup
+                    .connect(url.getUrl())
+                    .userAgent("Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 8.1; Trident/5.0; .NET4.0E; en-AU)")
+                    .get();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String title = null;
+
+        Elements links = null;
         if (doc != null) {
-            title = doc.title();
+            links = doc.select("a[href]");
         }
-        System.out.println(title);
 
-        Elements elements = doc.getElementsByTag("a");
-        for (Element i: elements) {
-            String value = i.attr("href");
-            String text = i.text();
-            System.out.println(text);
-            System.out.println("\t" + value);
-
-
+        if (links != null) {
+            for (Element link : links) {
+                String target = link.attr("abs:href");
+                if (target.startsWith("http://goodsmatrix.ru/goods-catalogue/Foodstuffs/")) {
+                    System.out.println(target);
+                }
+            }
         }
+
     }
 }
