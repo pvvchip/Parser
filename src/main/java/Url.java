@@ -2,14 +2,16 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-class GetURL {
+class Url {
     private String url;
+    private String filter;
 
-    GetURL() {
+    Url() {
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader("src/main/resources/url.txt"));
             url = br.readLine();
+            filter = br.readLine();
             br.close();
         } catch (IOException e) {
             System.out.println("File not: url.txt");
@@ -18,5 +20,8 @@ class GetURL {
 
     String getUrl() {
         return url;
+    }
+    String getFilter() {
+        return filter;
     }
 }
