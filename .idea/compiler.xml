@@ -9,8 +9,8 @@
         <module name="parser" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="parser" target="1.5" />
+    <bytecodeTargetLevel target="11">
+      <module name="parser" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
